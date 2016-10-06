@@ -1,0 +1,35 @@
+<footer id="give-me-room">
+  <hr>
+  <div class="row">
+    <div class="col-sm-3">
+      <p class="lead footer_border">Social Media</p>
+      <a target="_blank" href="https://www.facebook.com/listlistsale/"><p><i class="fa fa-facebook-official"></i> Facebook</p></a>
+      <a target="_blank" href="https://www.instagram.com/listlist.sale/"><p><i class="fa fa-instagram"></i> Instagram</p></a>
+      <a target="_blank" href="https://www.pinterest.com/listlistsale/"><p><i class="fa fa-pinterest"></i> Pinterest</p></a>
+      <a target="_blank" href="https://twitter.com/ListListSale"><p class="last"><i class="fa fa-twitter"></i> Twitter</p></a>
+    </div>
+    <div class="col-sm-3">
+      <p class="lead footer_border">News</p>
+      <a href="{% url 'posts:list' %}"><p><i class="fa fa-rss"></i> Blog</p></a>
+      <a href="/posts/about-us/"><p><i class="fa fa-users"></i> About Us</p></a>
+      <a href="{% url 'contact' %}"><p class="last"><i class="fa fa-comment"></i> Contact</p></a>
+    </div>
+    <div class="col-sm-3">
+      <p class="lead footer_border">More</p>
+      <a href="{% url 'posts:list' %}?q=update"><p><i class="fa fa-code"></i> Recent Updates</p></a>
+      <!-- <a href="#"><p><i class="fa fa-credit-card-alt"></i> Donate</p></a> -->
+      <a href="{% url 'legal' %}"><p class="last"><i class="fa fa-gavel"></i> Terms and Conditions</p></a>
+    </div>
+    <div class="col-sm-3">
+      <p class="lead footer_border">Help</p>
+      <a href="/posts/creating-account/"><p><i class="fa fa-user-plus"></i> Creating Account</p></a>
+      <a href="/posts/creating-ad/"><p class="last"><i class="fa fa-clipboard"></i> Creating Ad</p></a>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-12">
+      <p>&copy; 2016 ListList, LLC.</p>
+    </div>
+  </div>
+</footer>

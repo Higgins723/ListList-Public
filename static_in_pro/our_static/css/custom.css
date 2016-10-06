@@ -1,0 +1,31 @@
+.fa-navbar-basket{
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.container-alert-flash{
+  position: absolute;
+  top: 10px;
+  z-index: 50000;
+  width: 100%;
+  right: 0%;
+  margin: 0px;
+  display: none;
+}
+
+.footer_border{
+  border-bottom: 3px solid #777;
+}
+
+#give-me-room{
+  margin-top: 100px;
+}
+
+.last{
+  margin-bottom: 25px;
+}
+
+.og-price{
+  color: red;
+  text-decoration: line-through;
+}

@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="{% block meta-description %} {% endblock meta-description %}">
+    <meta name="author" content="Josh Higgins">
+    <meta property="fb:admins" content="1230468748"/>
+    <link rel="icon" href="{% static 'img/favicon.png' %}">
+    <title>{% block head_title %}ListList - The Classified Advertisment Website. Gun Listings Welcome!{% endblock head_title %}</title>
+    <style>
+      {% block css %}
+      {% endblock css %}
+    </style>
+    {% include 'analytics.html' %}
+
+    {% include 'head_css.html' %}
+  </head>
+  <body>
+    {% include 'facebook.html' %}
+
+    {% include 'navbar.html' %}
+
+    {% if messages %}
+      <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+          {% for message in messages %}
+            <div style="margin-top:15px; text-align:center;" class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% block jumbotron %}
+    {% endblock jumbotron %}
+
+    <div class="container">
+      {% block content %}
+      {% endblock content %}
+
+      {% block bottom_content %}
+      {% endblock bottom_content %}
+
+      {% include 'footer.html' %}
+    </div> <!-- /container -->
+
+    {% include 'javascript.html' %}
+    <script>
+      $(document).ready(function(){
+        {% block jquery %}
+        {% endblock jquery %}
+      });
+    </script>
+  </body>
+</html>

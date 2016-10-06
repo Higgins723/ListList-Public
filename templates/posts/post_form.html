@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <h1>Form</h1>
+    <!-- CSRF - Cross-Site Request Forgery -->
+    <form method="POST" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Create Post" />
+    </form>
+  </div>
+</div>
+{% endblock content %}

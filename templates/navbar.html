@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      {% url 'dashboard' as home_url %}
+      <div class="navbar-brand">
+        <embed src="{% static 'img/nav-logo.svg' %}" type="image/svg+xml" width="100" height="20" />
+      </div>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li ><a href="{% url 'dashboard' %}">Home</a></li>
+        <li><a href="{% url 'products:list' %}">Classifieds</a></li>
+        <li><a href="{% url 'categories:category_home' %}">Categories</a></li>
+      </ul>
+      {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Login <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <form class="navbar-form" method="POST" action="{% url 'auth_login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input type="text" placeholder="Username" name="username" class="form-control">
+                </div>
+                <div class="form-group">
+                  <input type="password" placeholder="Password" name="password" class="form-control">
+                </div>
+                <hr/>
+                <button style="padding-left:6px; padding-right:6px;" type="submit" class="btn btn-primary btn-block">Login <i class="fa fa-sign-in"></i></button>
+              </form>
+              <p class="text-center btn btn-block"><a href="{% url 'auth_password_reset' %}">Forgot password?</a></p>
+            </ul>
+          </li>
+          {% if not "/accounts/register/" in request.get_full_path %}
+          <li><a href="{% url 'registration_register' %}"><i class="fa fa-user-plus"></i> Register</a></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+      {% if request.user.is_authenticated %}
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'sellers:dashboard' %}">Post Ad <i class="fa fa-plus"></i></a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user|capfirst }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% if request.user.is_superuser or request.user.is_staff %}
+                <li><a href="{% url 'admin:index' %}">Admin <i class="fa fa-lock"></i></a></li>
+              {% endif %}
+              <li><a href="{% url 'sellers:dashboard' %}">Account <i class="fa fa-user"></i></a></li>
+              <li><a href="{% url 'auth_logout' %}">Logout <i class="fa fa-sign-out"></i></a></li>
+            </ul>
+          </li>
+        </ul>
+      {% endif %}
+    </div><!--/.navbar-collapse -->
+  </div>
+</nav>

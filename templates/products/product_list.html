@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-12">
+    <h1>{% if vendor_name %}{{ vendor_name|capfirst }} {% endif %}Products</h1>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col-sm-2">
+    <form method="GET" action="{% url 'products:list' %}">
+      {{ filter_form|crispy }}
+      <button type='submit' class='btn btn-success'>Apply Filters <i class="fa fa-plus"></i></button>
+    </form>
+    <br>
+    <a class="btn btn-warning" href="{% url 'products:list' %}">Clear Filters <i class="fa fa-refresh"></i></a>
+  </div>
+  <div class="col-sm-10">
+    {% include "products/product_list_snippet.html" with product_list=object_list %}
+  </div>
+</div>
+
+
+
+{% if is_paginated %}
+<ul class="pagination nav navbar-nav">
+  {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-arrow-left"></i></a></li>
+  {% endif %}
+  {% if page_obj.paginator.num_pages > 1 %}
+    {% for page in page_obj.paginator.page_range %}
+      <li class="{% if page_obj.number == page  %}active{% endif %}"><a href="?page={{ page }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page }}</a></li>
+    {% endfor %}
+  {% endif %}
+  {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-arrow-right"></i></a></li>
+  {% endif %}
+</ul>
+{% endif %}
+
+{% endblock content %}

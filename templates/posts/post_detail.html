@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load urlify %}
+
+<!--block.super brings in title from base.html-->
+{% block head_title %}
+  {{ instance.title }} | {{ block.super }}
+{% endblock head_title %}
+
+
+{% block content %}
+<style media="screen">
+  .posting{
+    font-family: 'Open Sans', sans-serif;
+  }
+  .ubuntu{
+    font-family: 'Ubuntu', sans-serif;
+  }
+</style>
+
+
+<div class="row">
+
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <h2 class="ubuntu">{{ title|title }}</h2>
+    <hr>
+
+    {% if instance.image %}
+      <img class="img-responsive" src="{{ instance.image.url }}" />
+    {% endif %}
+
+    <h3>Posted: <small>{% if instance.draft %} <span style="color:red;">Draft</span> {% endif %}{{ instance.publish }}</small></h3>
+
+    <!-- Display Author of Post -->
+    {% if instance.user.get_full_name %}
+      <p>Author: {{ instance.user.get_full_name }}</p>
+    {% else %}
+      <p>Author: {{ instance.user }}</p>
+    {% endif %}
+
+    <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+
+    <hr/>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <span class="posting">{{ instance.content|linebreaks }}</span>
+        <h3>Comments/Questions</h3>
+        <hr>
+        <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

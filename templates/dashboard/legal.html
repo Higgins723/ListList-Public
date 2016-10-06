@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block meta-description %}
+  ListList's current terms and conditions that every user agrees to simply by using our site. Please read them carefully and if any questions arise we can always be reached by email.
+{% endblock meta-description %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+  <hr>
+  {% include 'legal.html' %}
+{% endblock content %}

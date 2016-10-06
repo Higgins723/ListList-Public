@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block style %}
+
+{% endblock style %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <h1>My Seller Products</h1>
+    <hr>
+  </div>
+  <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-xs-9">
+      <form method="GET" action="">
+        <div class="input-group">
+          <input type="text" value="{{ request.GET.q }}" name="q" class="form-control" placeholder="Search products..."/>
+          <span class="input-group-btn">
+            <input class="btn btn-primary" type="submit" value="Search"/>
+          </span>
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-3">
+      <a class="btn btn-success" href="{% url 'sellers:product_create' %}">Post Ad <i class="fa fa-plus-circle"></i></a>
+    </div>
+    <br>
+  </div>
+  <div class="col-sm-8 col-sm-offset-2">
+    <table class="table">
+    	<thead class="thead-inverse">
+    		<tr>
+    			<th>
+    				#
+    			</th>
+    			<th>
+    				Image
+    			</th>
+    			<th>
+    				Title
+    			</th>
+    			<th>
+    				Price
+    			</th>
+    			<th>
+    				Edit
+    			</th>
+    		</tr>
+    	</thead>
+    	{% for instance in product_list %}
+    		<tbody>
+    			<tr>
+    	    	<th scope="row">
+    	    		{{ instance.id }}
+    	    	</th>
+    	    	<td>
+    		    	<a href='{{ instance.get_absolute_url }}'>
+    		    		<img src='{{ instance.main_img.url }}' style='max-width:100px'/>
+    					</a>
+    	    	</td>
+    				<td>
+    	    		<a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a>
+    	    	</td>
+    	    	<td>
+    					${{ instance.price }}
+    	    	</td>
+    	    	<td>
+    					<a class="btn btn-info" href='{{ instance.get_edit_url }}'>Edit <i class="fa fa-pencil-square-o"></i></a> <a class="btn btn-warning" href="{{ instance.get_delete_url }}">Delete <i class="fa fa-trash"></i></a>
+    	    	</td>
+    			</tr>
+    		</tbody>
+    {% empty %}
+    	<tbody>
+    		<tr>
+    			<td colspan="5">
+    					No Products found.
+    			</td>
+    		</tr>
+    	</tbody>
+    {% endfor %}
+
+    </table>
+
+    {% if is_paginated %}
+    <ul class="pagination nav navbar-nav">
+      {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-arrow-left"></i></a></li>
+      {% endif %}
+      {% if page_obj.paginator.num_pages > 1 %}
+        {% for page in page_obj.paginator.page_range %}
+          <li class="{% if page_obj.number == page  %}active{% endif %}"><a href="?page={{ page }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page }}</a></li>
+        {% endfor %}
+      {% endif %}
+      {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-arrow-right"></i></a></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block meta-description %}
+  ListList is a classified advertisements website. Allowing you to create ads that the whole world can see. From Guns to baby clothes we have a spot on our site for you!
+{% endblock meta-description %}
+
+
+{% block content %}
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-sm-3">
+      <img style="margin-top:20px;" src="{% static 'img/circle-img.png' %}" class="img-responsive" />
+    </div>
+    <div class="col-sm-9">
+      <h1>Welcome, to ListList!</h1>
+  		<p>
+  			ListList is a classified, easy-to-use website that allows you to create ads and share them with the world. At ListList we support the Constitution and believe that we have a right to bear arms. From guns, all the way to baby clothes we have a section on our site for you!
+  		</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-sm-4">
+		<div class="thumbnail">
+      <div class="caption">
+        <h3 class="text-center">ListList</h3>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Free
+				</p>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Classified Ads
+				</p>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Nationwide
+				</p>
+				<p class="lead">
+					<i class="fa fa-caret-right"></i> Including Firearms
+				</p>
+				<a href="" class="btn btn-block btn-success">Learn More <i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+	</div>
+	<div class="col-sm-4">
+		<div class="thumbnail">
+      <div class="caption">
+        <h3 class="text-center">Manage Your Products</h3>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Create
+				</p>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Edit
+				</p>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Delete
+				</p>
+				<p class="lead">
+					<i class="fa fa-caret-right"></i> Promote
+				</p>
+				<a href="" class="btn btn-block btn-success">Learn More <i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+	</div>
+	<div class="col-sm-4">
+		<div class="thumbnail">
+      <div class="caption">
+        <h3 class="text-center">Boost Your Products</h3>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Coming Soon
+				</p>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Home page listings
+				</p>
+				<p style="margin-bottom:0;" class="lead">
+					<i class="fa fa-caret-right"></i> Affordable
+				</p>
+				<p class="lead">
+					<i class="fa fa-caret-right"></i> Effective
+				</p>
+				<a href="" class="btn btn-block btn-success">Learn More <i class="fa fa-chevron-right"></i></a>
+      </div>
+    </div>
+	</div>
+</div>
+
+
+{% if curated.count > 0 %}
+<div class="">
+	{% for curated_section in curated %}
+		<h1>{{ curated_section.section_name }}</h1>
+		{% include "products/product_list_snippet.html" with product_list=curated_section.products.all %}
+	{% endfor %}
+</div>
+{% endif %}
+
+{% endblock content %}

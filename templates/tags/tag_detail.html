@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load get_thumbnail %}
+
+
+{% block content %}
+
+
+<h1>{{ object.products.all.count }} {{ object|capfirst }} Tag{% if object.products.count > 1 %}s{% endif %}</h1>
+<hr>
+{% include "products/product_list_snippet.html" with product_list=object.products.all %}
+
+
+{% endblock %}
+

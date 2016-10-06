@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Delete Product</h1>
+  <form class="" action="" method="POST">
+    {% csrf_token %}
+    <p class="lead">Are you sure you want to delete "{{ object }}"</p>
+    <button class="btn btn-danger" type="submit" name="button">Confirm Delete <i class="fa fa-trash"></i></button>
+    <a class="btn btn-default" href="{% url 'sellers:product_list' %}">Cancel <i class="fa fa-undo"></i></a>
+  </form>
+
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Tags</h1>
+      <hr>
+    </div>
+  {{object_list.products.count}}
+  {% for instance in object_list %}
+  <div class="col-sm-3">
+    <div style="text-align:center;" class="thumbnail">
+      <div class="caption">
+        <h3 style="margin-bottom:0;">{{ instance.title|capfirst }}</h3>
+        <p class="lead">{{ instance.products.count }} Product{% if instance.products.count > 1 %}s{% endif %}</p>
+        <p><a href="{{ instance.get_absolute_url }}" class="btn btn-primary" role="button">View Tag</a></p>
+      </div>
+    </div>
+  </div>
+  {% cycle '' '' '' '</div><div class="row">' %}
+  {% empty %}
+    <div class="col-md-12">
+      <p class="lead">No Tags yet.</p>
+    </div>
+  {% endfor %}
+  </div>
+{% endblock %}

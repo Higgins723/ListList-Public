@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+  {{ object }} | {{ block.super }}
+{% endblock head_title %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{ object }} <small><a href="{% url 'categories:category_home' %}">- Back To Categories</a></small></h2>
+      <hr/>
+    </div>
+    <div class="col-md-12">
+      {% include "products/product_list_snippet.html" with product_list=products %}
+    </div>
+  </div>
+{% endblock content %}

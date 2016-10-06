@@ -1,0 +1,25 @@
+
+<div class="row">
+{% for instance in product_list %}
+<div class="col-sm-3">
+  <div class="thumbnail">
+    <a href="{{ instance.get_absolute_url }}"><img class="img-responsive" src="{{ instance.main_img.url }}" /></a>
+    <div class="caption">
+      <h3 style="margin-bottom:0;">{{ instance.title|title }} <small>{{ instance.condition|title }}</small></h3>
+      <p style="margin-bottom:0;" class="lead text-success"><i class="fa fa-usd"></i>{{ instance.price }}</p>
+      <p style="margin-bottom:0;"><i class="fa fa-bars"></i> {{ instance.categories }}</p>
+      <p style="margin-bottom:0;"><i class="fa fa-user"></i> {{ instance.seller|capfirst }}</p>
+      <p style="margin-bottom:0;"><i class="fa fa-map-marker"></i> {{ instance.city|title }}</p>
+      <p style="margin-bottom:0;"><i class="fa fa-calendar"></i> {{ instance.timestamp|timesince }} ago</p>
+      <p>{{ instance.description|truncatechars:25 }}</p>
+      <p><a href="{{ instance.get_absolute_url }}" class="btn btn-primary" role="button">View More</a></p>
+    </div>
+  </div>
+</div>
+{% cycle '' '' '' '</div><div class="row">' %}
+{% empty %}
+  <div class="col-md-12">
+    <p class="lead">No Products found.</p>
+  </div>
+{% endfor %}
+</div>

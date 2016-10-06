@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-12">
+    <h1>ListList Blog</h1>
+    <hr>
+  </div>
+
+  <div class="col-sm-6 col-sm-offset-3">
+
+    <form method="GET" action="">
+      <div class="input-group">
+        <input type="text" value="{{ request.GET.q }}" name="q" class="form-control" placeholder="Search posts..."/>
+        <span class="input-group-btn">
+          <input class="btn btn-primary" type="submit" value="Search"/>
+        </span>
+      </div>
+    </form>
+
+    <hr/>
+    <div class="row">
+      {% for obj in object_list %}
+        <div class="col-sm-12">
+          <div class="thumbnail">
+            <!-- <img src="..." alt="..."> -->
+            {% if obj.image %}
+              <a href="{{ obj.get_absolute_url }}"><img class="img-responsive" src="{{ obj.image.url }}" /></a>
+            {% endif %}
+            <div class="caption">
+
+              {% if obj.draft %}
+                <!-- This is to show admins if it is a draft -->
+                <h3 style="color: red;">Staff Only: Draft</h3>
+              {% endif %}
+              {% if obj.publish > today %}
+                <!-- This is to show admins if it is set for future release -->
+                <h3 style="color: red;">Staff Only: Future Post</h3>
+              {% endif %}
+
+              <h3><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a><br/> <small>{{ obj.timestamp|timesince }} ago</small></h3>
+
+              <!-- Display Author of Post -->
+              {% if obj.user.get_full_name %}
+                <p>Author: {{ obj.user.get_full_name }}</p>
+              {% else %}
+                <p>Author: {{ obj.user }}</p>
+              {% endif %}
+
+              <p>{{ obj.content|linebreaks|truncatechars:45 }}</p>
+              <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a></p>
+            </div>
+          </div>
+        </div>
+      <!-- {% cycle "" "</div><div class='row'>" %} -->
+      {% endfor %}
+
+
+      <div class="restore_pad_left pagination">
+        <ul class="pagination nav navbar-nav">
+          {% if object_list.has_previous %}
+            <li><a href="?page={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Prev</a></li>
+          {% endif %}
+          {% if object_list.paginator.num_pages > 1 %}
+            {% for page in object_list.paginator.page_range %}
+              <li class="{% if object_list.number == page  %}active{% endif %}"><a href="?page={{ page }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page }}</a></li>
+            {% endfor %}
+          {% endif %}
+          {% if object_list.has_next %}
+            <li><a href="?page={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
+<!-- cycle: after every two loops it will add a class of row -->
